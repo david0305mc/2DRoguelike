@@ -23,8 +23,8 @@ public class AIDefaultEnemy : MonoBehaviour
             shootBehaviour.PerformAction(tank, detector);
         }
         else
-        { 
-        
+        {
+            patrolbehaviour.PerformAction(tank, detector);
         }
     }
 
