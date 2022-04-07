@@ -6,12 +6,8 @@ using UnityEngine;
 public class TankMover : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb2d;
-
+    [SerializeField] private TankMovementData movementData;
     private Vector2 movementVector;
-    public float maxSpeed = 10f;
-    public float rotationSpeed = 100f;
-    public float acceleration = 70;
-    public float deacceleration = 50;
     public float currentSpeed = 0;
     public float currentForewadDirection = 1;
 
@@ -34,13 +30,13 @@ public class TankMover : MonoBehaviour
     {
         if (movementVector.magnitude > 0)
         {
-            currentSpeed += acceleration * Time.deltaTime;
+            currentSpeed += movementData.acceleration * Time.deltaTime;
         }
         else
         {
-            currentSpeed -= deacceleration * Time.deltaTime;
+            currentSpeed -= movementData.deacceleration * Time.deltaTime;
         }
-        currentSpeed = Mathf.Clamp(currentSpeed, 0, maxSpeed);
+        currentSpeed = Mathf.Clamp(currentSpeed, 0, movementData.maxSpeed);
     }
 
     private void FixedUpdate()

@@ -5,24 +5,21 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 10;
-    public int damage = 5;
-    public float maxDistance = 10;
-
     private Vector2 startPosition;
     private float conquaredDistance = 0;
     [SerializeField] private Rigidbody2D rb2d;
-
-    public void Initialize()
+    private BulletData bulletData;
+    public void Initialize(BulletData bulletData)
     {
+        this.bulletData = bulletData;
         startPosition = transform.position;
-        rb2d.velocity = transform.up * speed;
+        rb2d.velocity = transform.up * bulletData.speed;
     }
 
     private void Update()
     {
         conquaredDistance = Vector2.Distance(transform.position, startPosition);
-        if (conquaredDistance >= maxDistance)
+        if (conquaredDistance >= bulletData.maxDistance)
         {
             DiableObject();
         }
@@ -41,7 +38,7 @@ public class Bullet : MonoBehaviour
         var damagable = collision.GetComponent<Damagable>();
         if (damagable != null)
         {
-            damagable.Hit(damage);
+            damagable.Hit(bulletData.damage);
         }
         DiableObject();
     }

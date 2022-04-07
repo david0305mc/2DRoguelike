@@ -5,17 +5,15 @@ using UnityEngine;
 [RequireComponent(typeof(ObjectPool))]
 public class Turret : MonoBehaviour
 {
-    [SerializeField] private List<Transform> turretBarrels; 
-    [SerializeField] private Bullet bulletPrefab;
-
-    public float reloadDelay = 1;
+    [SerializeField] private List<Transform> turretBarrels = default; 
+    public TurretData turretData;
 
     private bool canShoot = true;
     private Collider2D[] tankColliders;
     private float currentDelay = 0;
 
     [SerializeField] private int bulletPoolCount = 10;
-    [SerializeField] private ObjectPool bulletPool;
+    [SerializeField] private ObjectPool bulletPool = default;
 
     private void Awake()
     {
@@ -24,7 +22,7 @@ public class Turret : MonoBehaviour
 
     private void Start()
     {
-        bulletPool.Initialize(bulletPrefab.gameObject, bulletPoolCount);
+        bulletPool.Initialize(turretData.bulletPrefab.gameObject, bulletPoolCount);
     }
 
     private void Update()
@@ -44,7 +42,7 @@ public class Turret : MonoBehaviour
         if (canShoot)
         {
             canShoot = false;
-            currentDelay = reloadDelay;
+            currentDelay = turretData.reloadDelay;
 
             foreach (var barrel in turretBarrels)
             {
@@ -52,7 +50,7 @@ public class Turret : MonoBehaviour
                 //GameObject bullet = Instantiate(bulletPrefab.gameObject);
                 bullet.transform.position = barrel.position;
                 bullet.transform.localRotation = barrel.rotation;
-                bullet.GetComponent<Bullet>().Initialize();
+                bullet.GetComponent<Bullet>().Initialize(turretData.bulletData);
                 foreach (var collier in tankColliders)
                 {
                     Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), collier);
