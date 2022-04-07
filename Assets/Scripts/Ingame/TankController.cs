@@ -8,6 +8,9 @@ public class TankController : MonoBehaviour
     private Vector2 movementVector;
     public float maxSpeed = 10f;
     public float rotationSpeed = 100f;
+    public float turretRotationSpeed = 150f;
+
+    public Transform turretParent;
 
     private void Awake()
     {
@@ -26,7 +29,10 @@ public class TankController : MonoBehaviour
 
     public void HandleTurretMovement(Vector2 pointerPosition)
     {
-
+        var turretDirection = (Vector3)pointerPosition - transform.position;
+        var desiredAngle = Mathf.Atan2(turretDirection.y, turretDirection.x) * Mathf.Rad2Deg;
+        var rotationStep = turretRotationSpeed * Time.deltaTime;
+        turretParent.rotation = Quaternion.RotateTowards(turretParent.rotation, Quaternion.Euler(0, 0, desiredAngle - 90), rotationStep);
     }
 
     private void FixedUpdate()
