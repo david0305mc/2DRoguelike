@@ -31,7 +31,9 @@ public class TankController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb2d.velocity = (Vector2)transform.up * movementVector.y * maxSpeed * Time.fixedDeltaTime;
-        rb2d.MoveRotation(transform.rotation * Quaternion.Euler(0, 0, -movementVector.x * rotationSpeed * Time.fixedDeltaTime));
+        var move = (Vector2)movementVector * maxSpeed * Time.fixedDeltaTime;
+        rb2d.velocity = move;
+        gameObject.transform.up = move;
+        //rb2d.MoveRotation(transform.rotation * Quaternion.Euler(0, 0, -movementVector.x * rotationSpeed * Time.fixedDeltaTime));
     }
 }
