@@ -9,6 +9,8 @@ public class TankController : MonoBehaviour
     [SerializeField] private AimTurret aimTurret;
     [SerializeField] private Turret turret;
 
+
+    public AimTurret AimTurret { get => aimTurret; }
     public void HandleShoot()
     {
         turret.Shoot();
