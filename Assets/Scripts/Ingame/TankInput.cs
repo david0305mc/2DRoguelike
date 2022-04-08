@@ -17,9 +17,10 @@ public class TankInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         GetBodyMovemovement();
-        GetTurretMovement();
-        GetShootingInput();
+        //GetTurretMovement();
+        //GetShootingInput();
     }
 
     private void GetShootingInput()
