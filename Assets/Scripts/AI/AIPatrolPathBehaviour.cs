@@ -41,7 +41,19 @@ public class AIPatrolPathBehaviour : AIBehaviour
                 return;
             }
 
-            //Vector2 directionToGo = currentPatrolTarget - (Vector2) tank.mover
+            Vector2 directionToGo = currentPatrolTarget - (Vector2)tank.tankMover.transform.position;
+            var dotProduct = Vector2.Dot(tank.tankMover.transform.up, directionToGo.normalized);
+
+            if (dotProduct < 0.98f)
+            {
+                var crossProduct = Vector3.Cross(tank.tankMover.transform.up, directionToGo.normalized);
+                int rotationResult = crossProduct.z >= 0 ? -1 : 1;
+                tank.HandleMoveBody(new Vector2(rotationResult, 1));
+            }
+            else
+            {
+                tank.HandleMoveBody(Vector2.up);
+            }
         }
     }
 
