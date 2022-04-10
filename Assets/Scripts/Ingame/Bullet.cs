@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Bullet : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class Bullet : MonoBehaviour
     private float conquaredDistance = 0;
     [SerializeField] private Rigidbody2D rb2d;
     private BulletData bulletData;
+    [SerializeField] public UnityEvent OnHit = new UnityEvent();
+
     public void Initialize(BulletData bulletData)
     {
         this.bulletData = bulletData;
@@ -34,6 +37,7 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Collider " + collision.name);
+        OnHit?.Invoke();
 
         var damagable = collision.GetComponent<Damagable>();
         if (damagable != null)
