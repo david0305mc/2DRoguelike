@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TankMover : MonoBehaviour
 {
@@ -11,18 +12,25 @@ public class TankMover : MonoBehaviour
     public float currentSpeed = 0;
     public float currentForewadDirection = 1;
 
+    public UnityEvent<float> OnSpeedChange = new UnityEvent<float>();
+
     public void Move(Vector2 movementVector)
     {
         this.movementVector = movementVector;
         CalculateSpeed(movementVector);
-        //if (movementVector.y > 0)
-        //{
-        //    currentForewadDirection = 1;
-        //}
-        //else if (movementVector.y < 0)
-        //{
-        //    currentForewadDirection = 0;
-        //}
+        OnSpeedChange?.Invoke(this.movementVector.magnitude);
+        if (movementVector.y > 0)
+        {
+            if (currentForewadDirection == -1)
+                currentSpeed = 0;
+            currentForewadDirection = 1;
+        }
+        else if (movementVector.y < 0)
+        {
+            if (currentForewadDirection == 1)
+                currentSpeed = 0;
+            currentForewadDirection = -1;
+        }
 
     }
 
