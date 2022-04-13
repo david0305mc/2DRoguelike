@@ -37,7 +37,7 @@ public class Turret : MonoBehaviour
         if (!canShoot)
         {
             currentDelay -= Time.deltaTime;
-            OnReloading?.Invoke(currentDelay);
+            OnReloading?.Invoke(currentDelay / turretData.reloadDelay);
             if (currentDelay <= 0)
             {
                 canShoot = true;
@@ -54,6 +54,12 @@ public class Turret : MonoBehaviour
 
             foreach (var barrel in turretBarrels)
             {
+                //var hit = Physics2D.Raycast(barrel.position, barrel.up);
+                //if (hit.collider != null)
+                //{
+                //    Debug.Log("Hit " + hit.collider.name);
+                //}
+
                 GameObject bullet = bulletPool.CreateObject();
                 //GameObject bullet = Instantiate(bulletPrefab.gameObject);
                 bullet.transform.position = barrel.position;
@@ -71,6 +77,6 @@ public class Turret : MonoBehaviour
         {
             OnCantShoot?.Invoke();
         }
-        Debug.Log("Shooting");
+        //Debug.Log("Shooting");
     }
 }
