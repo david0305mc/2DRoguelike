@@ -14,7 +14,7 @@ public class Damagable : MonoBehaviour
         set
         {
             health = value;
-            OnHealthchange?.Invoke(Health);
+            OnHealthchange?.Invoke((float)Health / MaxHealth);
         }
     }
 
