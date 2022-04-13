@@ -30,14 +30,14 @@ public class Damagable : MonoBehaviour
 
     internal void Hit(int damagePoints)
     {
-        health -= damagePoints;
-        if (health <= 0)
+        Health -= damagePoints;
+        if (Health <= 0)
         {
             OnDead?.Invoke();
         }
         else
         {
-            OnHeal?.Invoke();
+            OnHit?.Invoke();
         }
     }
 
