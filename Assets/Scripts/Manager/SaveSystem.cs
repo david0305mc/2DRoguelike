@@ -36,7 +36,6 @@ public class SaveSystem : MonoBehaviour
     {
         if (PlayerPrefs.GetInt(savePresentKey) == 1)
         {
-            LoadedData = new LoadedData();
             LoadedData.playerHealth = PlayerPrefs.GetInt(playerHealthKey);
             LoadedData.sceneIndex = PlayerPrefs.GetInt(sceneKey);
             return true;
