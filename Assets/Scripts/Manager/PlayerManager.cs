@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -78,11 +79,15 @@ public class PlayerManager : MonoBehaviour
     }
 
     private void CheckIfPlayerInRange()
-    {
-        Collider2D collision = Physics2D.OverlapCircle(transform.position, viewRadius, enemyLayerMask);
-        if (collision != null)
+    {  
+        var enemies =  Physics2D.OverlapCircleAll(transform.position, viewRadius, enemyLayerMask);
+        if (enemies.Length > 0)
         {
-            Target = collision.transform;
+            var items = enemies.OrderBy(obj =>
+            {
+                return Vector2.Distance(obj.gameObject.transform.position, transform.position);
+            }).ToList();
+            Target = items.First().transform;
         }
     }
 
