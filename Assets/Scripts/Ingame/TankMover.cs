@@ -21,14 +21,14 @@ public class TankMover : MonoBehaviour
         OnSpeedChange?.Invoke(this.movementVector.magnitude);
         if (movementVector.y > 0)
         {
-            if (currentForewadDirection == -1)
-                currentSpeed = 0;
+            //if (currentForewadDirection == -1)
+            //    currentSpeed = 0;
             currentForewadDirection = 1;
         }
         else if (movementVector.y < 0)
         {
-            if (currentForewadDirection == 1)
-                currentSpeed = 0;
+            //if (currentForewadDirection == 1)
+            //    currentSpeed = 0;
             currentForewadDirection = -1;
         }
 
