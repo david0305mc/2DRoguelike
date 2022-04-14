@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,14 @@ public class GameManager : MonoBehaviour
         {
             var damagable = player.GetComponentInChildren<Damagable>();
             damagable.Health = saveSystem.LoadedData.playerHealth;
+        }
+    }
+
+    public void SaveData()
+    {
+        if (player != null)
+        {
+            saveSystem.SaveData(SceneManager.GetActiveScene().buildIndex + 1, player.GetComponentInChildren<Damagable>().Health);
         }
     }
 
