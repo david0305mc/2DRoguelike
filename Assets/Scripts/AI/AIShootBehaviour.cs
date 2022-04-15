@@ -19,6 +19,8 @@ public class AIShootBehaviour : AIBehaviour
 
     private bool TargetInFov(TankController tank, AIDetector detector)
     {
+        if (detector.Target == null)
+            return false;
         var direction = detector.Target.position - tank.AimTurret.transform.position;
         if (Vector2.Angle(tank.AimTurret.transform.right, direction) < fieldOfVisionForShooting / 2)
         {
